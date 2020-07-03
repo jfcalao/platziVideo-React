@@ -5,7 +5,9 @@
   height: 80px;
   width: 100%;
 }
-
+.isGreen{
+  background: #21C08B;
+}
 .header__img {
   width: 200px;
   margin-top: 10px;
@@ -41,6 +43,7 @@
 
 .header__menu li a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .header__menu--profile {
@@ -53,6 +56,8 @@
 .header__menu--profile img {
   margin-right: 8px;
   width: 40px;
+  border-radius: 100%;
+  object-fit: cover;
 }
 
 .header__menu--profile p {
