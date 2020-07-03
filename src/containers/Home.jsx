@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from 'react'
-import Header from '../components/Header'
+import React from 'react'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
-import Footer from '../components/Footer'
 import useInitialState from '../hooks/useInitialState'
+import Header from '../components/Header'
 import '../assets/styles/App.scss'
-const App = () => {
-
-  const videos = useInitialState('http://localhost:3000/initalState')
-  console.log(videos)
-
+const Home = ({ myList, original, trends }) => {
   return (
-    <div className="App">
-      <Header />
+    <>
+    <Header />
       <Search />
 
-      {videos.mylist.length > 0 &&
+      {myList.length > 0 &&
 
         <Categories title="Mi lista">
           <Carousel>
             {
-              videos.mylist.map(item=><CarouselItem key={item.id} {...item} />)
+              myList.map(item => <CarouselItem key={item.id} {...item} isList />)
             }
           </Carousel>
         </Categories>
       }
       <Categories title="Tendencias">
         <Carousel>
-          {videos.trends.map(item =>
+          {trends.map(item =>
             <CarouselItem key={item.id} {...item} />
           )}
         </Carousel>
@@ -38,15 +35,25 @@ const App = () => {
       <Categories title="Originales de PlatziVideo">
         <Carousel>
           {
-            videos.originals.map(
+            original.map(
               (item) => (<CarouselItem key={item.id} {...item} />)
             )
           }
         </Carousel>
       </Categories>
-
-      <Footer />
-    </div>
+    </>
   )
 }
-export default App
+Home.propTypes={
+  myList: PropTypes.array,
+  trends: PropTypes.array,
+  original: PropTypes.array
+}
+const mapStateToProps = state=>{
+  return {
+    myList: state.myList,
+    trends: state.trends,
+    original: state.originals
+  }
+}
+export default connect(mapStateToProps, null)(Home)
