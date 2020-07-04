@@ -32,3 +32,9 @@ export const getVideoSource= payload=>(
     payload
   }
 )
+export const setSearchResults= payload=>(
+  {
+    type: 'SET_SEARCH_RESULTS',
+    payload
+  }
+)

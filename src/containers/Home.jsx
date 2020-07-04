@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
@@ -8,11 +8,24 @@ import CarouselItem from '../components/CarouselItem'
 import useInitialState from '../hooks/useInitialState'
 import Header from '../components/Header'
 import '../assets/styles/App.scss'
-const Home = ({ myList, original, trends }) => {
+const Home = ({ searchResults, myList, original, trends }) => {
   return (
     <>
-    <Header />
+      <Header />
       <Search />
+      {
+        searchResults.length > 0 &&
+        <Categories title="Resultados de Busqueda...">
+          <Carousel>
+            {
+              searchResults.map(item => <CarouselItem key={item.id} {...item}/>)
+
+            }
+          </Carousel>
+
+        </Categories>
+      }
+
 
       {myList.length > 0 &&
 
@@ -44,16 +57,17 @@ const Home = ({ myList, original, trends }) => {
     </>
   )
 }
-Home.propTypes={
+Home.propTypes = {
   myList: PropTypes.array,
   trends: PropTypes.array,
   original: PropTypes.array
 }
-const mapStateToProps = state=>{
+const mapStateToProps = state => {
   return {
     myList: state.myList,
     trends: state.trends,
-    original: state.originals
+    original: state.originals,
+    searchResults: state.search
   }
 }
 export default connect(mapStateToProps, null)(Home)
