@@ -6,12 +6,11 @@ import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
 import useInitialState from '../hooks/useInitialState'
-import Header from '../components/Header'
 import '../assets/styles/App.scss'
 const Home = ({ searchResults, myList, original, trends }) => {
+  document.body.classList.remove('isGreen')
   return (
     <>
-      <Header />
       <Search />
       {
         searchResults.length > 0 &&
@@ -25,8 +24,6 @@ const Home = ({ searchResults, myList, original, trends }) => {
 
         </Categories>
       }
-
-
       {myList.length > 0 &&
 
         <Categories title="Mi lista">

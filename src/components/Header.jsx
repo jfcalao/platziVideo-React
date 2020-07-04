@@ -14,9 +14,15 @@ const Header = (props) => {
 	const handleLogout = () => {
 		props.logoutRequest({})
 	}
-	const classHeader= classNames('header',{isGreen})
+	if (isGreen) {
+		document.body.classList.add(isGreen)
+	}else{
+		document.body.classList.remove(isGreen)
+	}
+	/* const classHeader = classNames('header', { isGreen })
+	{ classHeader } */
 	return (
-		<header className={classHeader}>
+		<header className="header">
 			<Link to="/">
 				<img className="header__img" src={logo} alt="Logo-Platzi-Video" />
 			</Link>
@@ -46,7 +52,7 @@ const Header = (props) => {
 					}
 				</ul>
 			</div>
-		</header>
+		</header >
 	)
 }
 const mapStateToProps = (state) => {
@@ -58,7 +64,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
 	logoutRequest
 }
-Header.propTypes={
+Header.propTypes = {
 	user: PropTypes.object
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
